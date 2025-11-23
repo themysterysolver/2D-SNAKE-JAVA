@@ -18,6 +18,7 @@ public class game {
         generateFood();
 
         snake.add(head);
+        /*Thought of adding  a zero body since i have uppdated updateDirection*/
         System.out.println(snake);
 
         dirMap = new HashMap<>();
@@ -107,6 +108,8 @@ public class game {
     }
 
     private boolean IsgameOver(int nx, int ny) {
+        /*Stupid snake ends over if it tries to go back the same direction on which it is
+         moving on,so going to fix that up here*/
         if(nx<0 || ny<0 || nx>=size || ny>=size){
             return true;
         }
@@ -127,6 +130,10 @@ public class game {
     }
 
     public void updateDirection(String dir) {
-        direction = dir;
+        ArrayList<Integer> currentDir = dirMap.get(this.direction);
+        ArrayList<Integer> newDir = dirMap.get(dir);
+        if(snake.size()==1 || currentDir.get(0)+newDir.get(0)!=0 || currentDir.get(1)+newDir.get(1)!= 0){
+            this.direction = dir; // only update if not opposite
+        }
     }
 }
