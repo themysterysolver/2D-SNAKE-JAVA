@@ -17,7 +17,7 @@ public class snakeGameGUI extends JFrame implements KeyListener {
         size = g.size;
 
 
-        setSize(g.size*40,g.size*40);
+        setSize(500,500);
         setResizable(false);
         setTitle("Snake game");
         setLayout(new GridLayout(g.size,g.size));
@@ -94,6 +94,7 @@ public class snakeGameGUI extends JFrame implements KeyListener {
 
     private void startGame() {
         int delay = 300;
+
         Timer[] tholder = new Timer[1];
 
         tholder[0] = new Timer(delay, new ActionListener() {

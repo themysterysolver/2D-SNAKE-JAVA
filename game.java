@@ -1,11 +1,8 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class game {
     int board[][];
-    public int size = 16;
+    public int size = 20;
     ArrayList<ArrayList<Integer>> snake;
     String direction = "DOWN";
     Map<String,ArrayList<Integer>> dirMap;
@@ -17,6 +14,9 @@ public class game {
         ArrayList<Integer> head = new ArrayList<>();
         head.add(8);
         head.add(8);
+
+        generateFood();
+
         snake.add(head);
         System.out.println(snake);
 
@@ -54,12 +54,45 @@ public class game {
                 System.out.println("Game over!");
                 return false;
             }
-            board[hx][hy] = 1;
-            board[nx][ny] = 2;
-            ArrayList<Integer> tail = snake.removeLast();
-            board[tail.get(0)][tail.get(1)] = 0;
+            board[hx][hy] = 1; //body
+
+            if(board[nx][ny]==3){ //food
+                ArrayList<Integer> tail = snake.getLast();
+                board[tail.get(0)][tail.get(1)] = 1;
+
+                //generating food
+                if(!generateFood()){
+                    return false;
+                }
+
+            }else{
+                ArrayList<Integer> tail = snake.removeLast();
+                board[tail.get(0)][tail.get(1)] = 0; //making it blank
+            }
+            board[nx][ny] = 2; //red
             snake.add(0,new ArrayList<>(Arrays.asList(nx,ny)));
+
+
             return true;
+    }
+
+    private boolean generateFood() {
+        ArrayList<ArrayList<Integer>> empty = new ArrayList<>();
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(board[i][j] == 0){
+                    empty.add(new ArrayList<>(Arrays.asList(i,j)));
+                }
+            }
+        }
+        if(empty.size()==0){
+            return false;
+        }else{
+            Random r = new Random();
+            int idx = r.nextInt(empty.size());
+            board[empty.get(idx).get(0)][empty.get(idx).get(1)] = 3;
+        }
+        return true;
     }
 
     private boolean IsgameOver(int nx, int ny) {
