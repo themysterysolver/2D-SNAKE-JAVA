@@ -1,8 +1,9 @@
+import javax.swing.*;
 import java.util.*;
 
 public class game {
     int board[][];
-    public int size = 20;
+    public int size = 16;
     ArrayList<ArrayList<Integer>> snake;
     String direction = "DOWN";
     Map<String,ArrayList<Integer>> dirMap;
@@ -12,14 +13,14 @@ public class game {
         board = new int[size][size];
         snake = new ArrayList<>();
         ArrayList<Integer> head = new ArrayList<>();
-        head.add(8);
-        head.add(8);
+        head.add(size/2);
+        head.add(size/2);
 
         generateFood();
 
         snake.add(head);
         /*Thought of adding  a zero body since i have uppdated updateDirection*/
-        System.out.println(snake);
+//        System.out.println(snake);
 
         dirMap = new HashMap<>();
         dirMap.put("UP",new ArrayList<>(Arrays.asList(-1,0)));
@@ -56,9 +57,12 @@ public class game {
             int y = xy.get(1);
             int nx = hx+x;
             int ny = hy+y;
-
+            if(haveWon()){
+                JOptionPane.showMessageDialog(null, "Won!!");
+                return false;
+            }
             if(IsgameOver(nx,ny)) {
-                System.out.println("Game over!");
+                JOptionPane.showMessageDialog(null, "Game over!!");
                 return false;
             }
             board[hx][hy] = 1; //making the snake head as a body(green) still in snake list(body)
@@ -86,6 +90,21 @@ public class game {
 
 
             return true;
+    }
+
+    private boolean haveWon() {
+        ArrayList<ArrayList<Integer>> empty = new ArrayList<>();
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(board[i][j] == 0){
+                    empty.add(new ArrayList<>(Arrays.asList(i,j)));
+                }
+            }
+        }
+        if(empty.size()==0) {
+            return true;
+        }
+        return false;
     }
 
     private boolean generateFood() {
@@ -125,9 +144,9 @@ public class game {
 
 
 
-    public static void main(String[] args) {
-
-    }
+//    public static void main(String[] args) {
+//
+//    }
 
     public void updateDirection(String dir) {
         ArrayList<Integer> currentDir = dirMap.get(this.direction);

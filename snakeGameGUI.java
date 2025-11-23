@@ -81,7 +81,7 @@ public class snakeGameGUI extends JFrame implements KeyListener {
         }else{
             dir="DOWN";
         }
-        System.out.println(dir);
+        //System.out.println(dir);
         g.updateDirection(dir);
 
     }
@@ -91,13 +91,13 @@ public class snakeGameGUI extends JFrame implements KeyListener {
     public void keyReleased(KeyEvent e) {}
 
     // Initiator of programme
-    public static void main(String[] args) {
-        snakeGameGUI s = new snakeGameGUI();
-        s.startGame();
-    }
+//    public static void main(String[] args) {
+//        snakeGameGUI s = new snakeGameGUI();
+//        s.startGame();
+//    }
 
     /*This is the driver which maes move every x milli seconds*/
-    private void startGame() {
+    void startGame() {
         int delay = 300;
 
         Timer[] tholder = new Timer[1];
