@@ -16,3 +16,8 @@ body,html{
     width: 50vw;
     height: 50vh;
 }
+.snakeBody{
+    width: 2px;
+    height: 2px;
+    
+}
