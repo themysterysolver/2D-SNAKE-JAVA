@@ -10,7 +10,7 @@ public class snakeGameGUI extends JFrame implements KeyListener {
     int size;
     game g;
     JButton[][] board;
-    String dir = "DOWN";
+    String dir = "DOWN"; //Initial movement is down!
     snakeGameGUI(){
 
         g = new game();
@@ -46,6 +46,7 @@ public class snakeGameGUI extends JFrame implements KeyListener {
         requestFocusInWindow();
     }
 
+    // Periodic refresh, color code is a drag. I got confused here and there!
     void displayBoard() {
         for(int i=0;i<size;i++){
             for(int j=0;j<size;j++){
@@ -63,7 +64,9 @@ public class snakeGameGUI extends JFrame implements KeyListener {
     }
 
 
-
+    /* Fun thing to rememeber here is
+    *    38
+    * 37 40 39 rule of event listener,this si common in both JS and even in JAVA,so note karo! */
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
@@ -87,11 +90,13 @@ public class snakeGameGUI extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {}
 
+    // Initiator of programme
     public static void main(String[] args) {
         snakeGameGUI s = new snakeGameGUI();
         s.startGame();
     }
 
+    /*This is the driver which maes move every x milli seconds*/
     private void startGame() {
         int delay = 300;
 

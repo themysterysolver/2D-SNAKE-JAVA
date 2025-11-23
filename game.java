@@ -29,6 +29,7 @@ public class game {
 
     }
 
+    //console display
     void display(){
         for(int i=0;i<board.length;i++){
             for(int j=0;j<board[0].length;j++){
@@ -38,6 +39,11 @@ public class game {
         }
     }
 
+    /*The idea here is beautiful with differnet scenarios. I always thought moving everything while coding
+    * for example if we have a snake of (0,0),(0,1),(0,2) then if I want to move eerything I thought I
+    * should make track of turns or move the head seperately from the body.Like 2 different things.I thought
+    * I should shift each other,this is a real drag. Then out of blue I got an SUPERB idea Adding a head front
+    * is moving forward and removing a tail from backward is technicall shifting all blocks ahead.*/
     boolean makeMove(){
         int hx = snake.get(0).get(0);
         int hy = snake.get(0).get(1);
@@ -50,13 +56,16 @@ public class game {
             int nx = hx+x;
             int ny = hy+y;
 
-            if(IsgameOver(nx,ny)){
+            if(IsgameOver(nx,ny)) {
                 System.out.println("Game over!");
                 return false;
             }
-            board[hx][hy] = 1; //body
+            board[hx][hy] = 1; //making the snake head as a body(green) still in snake list(body)
+
 
             if(board[nx][ny]==3){ //food
+                /*If food exists then what we do is that we don't remove tail but just move head forward
+                * if food doens't exist we pop it to simulate the moving idea.*/
                 ArrayList<Integer> tail = snake.getLast();
                 board[tail.get(0)][tail.get(1)] = 1;
 
@@ -69,8 +78,10 @@ public class game {
                 ArrayList<Integer> tail = snake.removeLast();
                 board[tail.get(0)][tail.get(1)] = 0; //making it blank
             }
+            //This was before the if block making a lot of confusion due to overriding,thx to GPT for debugging.
             board[nx][ny] = 2; //red
             snake.add(0,new ArrayList<>(Arrays.asList(nx,ny)));
+            /*Board is for display purpose and snake is for handling the game logic!*/
 
 
             return true;
